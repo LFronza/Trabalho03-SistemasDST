@@ -6,14 +6,17 @@
 package Apps;
 
 import Chaves.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  *
  * @author Leonardo Fronza
  */
 public class Cliente {
-    private LocalDateTime hora;
+
     private Chave key;
 
     public Chave getKey() {
@@ -24,13 +27,14 @@ public class Cliente {
         this.key = key;
     }
 
-    public LocalDateTime getHora() {
-        return hora;
+    public String getHora() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date).toString();
     }
 
     public void setHora() {
         LocalDateTime.now();
     }
-    
- 
+
 }

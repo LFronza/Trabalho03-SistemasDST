@@ -5,17 +5,28 @@
  */
 package Forms;
 
+import Apps.Cliente;
+import Tempo.Tclock;
+import Tempo.Temporizador;
+import javax.swing.JButton;
+import javax.swing.JToggleButton;
+import javax.swing.Timer;
+
 /**
  *
  * @author Leonardo Fronza
  */
 public class Clientes extends javax.swing.JFrame {
 
+    Tclock tempo;
+    Cliente c;
+
     /**
      * Creates new form Clientes
      */
     public Clientes() {
         initComponents();
+        c = new Cliente();
     }
 
     /**
@@ -27,25 +38,26 @@ public class Clientes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        btPegarKey = new javax.swing.JButton();
+        lbHora = new javax.swing.JLabel();
+        lbKey = new javax.swing.JLabel();
+        lbTempo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
-        jButton1.setText("Pegar key");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btPegarKey.setText("Pegar key");
+        btPegarKey.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btPegarKeyActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Hora =");
+        lbHora.setText("Hora =");
 
-        jLabel2.setText("Key =");
+        lbKey.setText("Key =");
 
-        jLabel3.setText("Tempo =");
+        lbTempo.setText("Tempo =");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -55,35 +67,41 @@ public class Clientes extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(68, 68, 68)
-                        .addComponent(jButton1))
+                        .addComponent(btPegarKey))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))))
-                .addContainerGap(69, Short.MAX_VALUE))
+                            .addComponent(lbTempo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbKey, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbHora, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(87, 87, 87)))
+                .addGap(69, 69, 69))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jLabel1)
+                .addComponent(lbHora)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
+                .addComponent(lbKey)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3)
+                .addComponent(lbTempo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(34, 34, 34)
-                .addComponent(jButton1)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addComponent(btPegarKey)
+                .addGap(14, 14, 14))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btPegarKeyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPegarKeyActionPerformed
+        btPegarKey.setEnabled(false);
+        lbHora.setText("Hora = " + c.getHora());
+        lbKey.setText("Key = " + c.getKey());
+        tempo = new Tclock(this, 60.0);
+        tempo.start();
+    }//GEN-LAST:event_btPegarKeyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -96,7 +114,7 @@ public class Clientes extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -120,10 +138,31 @@ public class Clientes extends javax.swing.JFrame {
         });
     }
 
+    public void setTempo(String tempo) {
+        if (Double.parseDouble(tempo) < 60.0) {
+            lbTempo.setText("Tempo = " + ((Double.parseDouble(tempo) - 60.0)) * (-1));
+        } else {
+            resetar();
+        }
+
+    }
+
+    public JButton getBotao() {
+        return btPegarKey;
+    }
+
+    public void resetar() {
+        btPegarKey.setEnabled(true);
+        lbHora.setText("Hora = ");
+        lbKey.setText("Key = ");
+        lbTempo.setText("Tempo = ");
+        tempo.parar();
+        tempo = null;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton btPegarKey;
+    private javax.swing.JLabel lbHora;
+    private javax.swing.JLabel lbKey;
+    private javax.swing.JLabel lbTempo;
     // End of variables declaration//GEN-END:variables
 }
