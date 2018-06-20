@@ -5,14 +5,22 @@
  */
 package Apps;
 
+import Chaves.*;
+
 /**
  *
  * @author Leonardo Fronza
  */
 public class Cliente {
-    public static void main(String[] args) {
-        
-        System.out.println("Eu sou um cliente");
+    Chave key;
+
+    public Chave getKey() {
+        return key;
     }
+
+    public void setKey(Chave key) {
+        this.key = key;
+    }
+    
  
 }
