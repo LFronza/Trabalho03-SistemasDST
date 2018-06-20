@@ -23,13 +23,15 @@ public class Gerenciador {
         this.keys = keys;
     }
 
-    public void setKey() {
+    public Chave setKey() {
+        Chave k = new Chave();
         for (int i = 0; i < keys.length; i++) {
             if (keys[i] == null) {
-                keys[i] = new Chave();
-                break;
+                keys[i] = k;
+                return k;
             }
         }
+        throw new RuntimeException("Nenhuma licença disponível");
     }
 
     public void expireKey(Cliente cliente) {
@@ -53,5 +55,17 @@ public class Gerenciador {
         }
         return saida;
     }
-    
+
+    public boolean validateKey(Chave chave) {
+        for (int i = 0; i < keys.length; i++) {
+            if (keys[i] == chave) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addClient(Cliente cliente) {
+        cliente.setKey(this.setKey());
+    }
 }

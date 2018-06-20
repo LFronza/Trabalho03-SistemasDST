@@ -6,13 +6,15 @@
 package Apps;
 
 import Chaves.*;
+import java.time.LocalDateTime;
 
 /**
  *
  * @author Leonardo Fronza
  */
 public class Cliente {
-    Chave key;
+    private LocalDateTime hora;
+    private Chave key;
 
     public Chave getKey() {
         return key;
@@ -20,6 +22,14 @@ public class Cliente {
 
     public void setKey(Chave key) {
         this.key = key;
+    }
+
+    public LocalDateTime getHora() {
+        return hora;
+    }
+
+    public void setHora() {
+        LocalDateTime.now();
     }
     
  
